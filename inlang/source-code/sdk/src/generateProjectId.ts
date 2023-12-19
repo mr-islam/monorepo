@@ -6,6 +6,9 @@ export async function generateProjectId(repo: Repository, projectPath: string) {
 	}
 	const repoMeta = await repo.getMeta()
 
+	if (crypto === undefined && require !== undefined) {
+		crypto = require("node:crypto")
+	}
 	if (repoMeta && !("error" in repoMeta)) {
 		const idDigest = await crypto.subtle.digest(
 			"SHA-256",
